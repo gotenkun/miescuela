@@ -424,10 +424,36 @@
                                     <br />
                                     <br />
                                    Descripción de Servicios Externos (Web Services)<br />
-                                    <table class="table table-striped table-bordered table-hover grd"> <tr>
+                                    <table class="table table-striped table-bordered table-hover grd"> 
+                                        <tr>
                                         <td>InfoEscuela(string _clave):</td>
                                         <td> Obtiene la información básica de la escuela indicada por clave.</td>
-                                            </tr></table>
+                                            </tr>
+                                        <tr>
+                                        <td>IndicadoresEscuelaID(long id):</td>
+                                        <td> Obtiene la información de indicadores para la escuela indicada.</td>
+                                            </tr>
+                                        <tr>
+                                        <td>EstadisticaEscuelaId(long id):</td>
+                                        <td> Obtiene la estadística de la escuela indicada.</td>
+                                            </tr>
+                                        <tr>
+                                        <td>GetAreas(long id):</td>
+                                        <td> Obtiene las áreas que la escuela indicada tiene agregadas.</td>
+                                            </tr>
+                                        <tr>
+                                        <td>GetAreaVotos(long id):</td>
+                                        <td> Obtiene los votos del área indicada.</td>
+                                            </tr>
+                                        <tr>
+                                        <td>GetIdeas(long id):</td>
+                                        <td> Obtiene las ideas que se han propuesto en la escuela indicada.</td>
+                                            </tr>
+                                        <tr>
+                                        <td>GetIdeaVotos(long id):</td>
+                                        <td> Obtiene los votos de la idea indicada.</td>
+                                            </tr>
+                                    </table>
                                    
                                     
                                 </div>
