@@ -1,0 +1,23 @@
+﻿
+        .ratingStar {
+            float: right;
+            padding-left: 20px;
+        }
+
+        .Star {
+            background-image: url(/img/Star.gif);
+            height: 17px;
+            width: 17px;
+        }
+
+        .WaitingStar {
+            background-image: url(/img/WaitingStar.gif);
+            height: 17px;
+            width: 17px;
+        }
+
+        .FilledStar {
+            background-image: url(/img/FilledStar.gif);
+            height: 17px;
+            width: 17px;
+        }

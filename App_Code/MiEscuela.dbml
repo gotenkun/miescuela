@@ -1,0 +1,511 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MiEscuelaJalisco" Class="MiEscuelaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=MiEscuelaJalisco;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MiEscuelaJaliscoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.ApoyoSocial" Member="ApoyoSocials">
+    <Type Name="ApoyoSocial">
+      <Column Name="ApoyoSocialID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TipoApoyoSocialID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Texto" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Cat_TipoApoyoSocial_ApoyoSocial" Member="Cat_TipoApoyoSocial" ThisKey="TipoApoyoSocialID" OtherKey="TipoApoyoSocialID" Type="Cat_TipoApoyoSocial" IsForeignKey="true" />
+      <Association Name="CctActivo_ApoyoSocial" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Usuario_ApoyoSocial" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuarioGrupo" Member="UsuarioGrupos">
+    <Type Name="UsuarioGrupo">
+      <Column Name="UsuarioGrupoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GrupoID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_UsuarioGrupo" Member="Grupo" ThisKey="GrupoID" OtherKey="GrupoID" Type="Grupo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Usuario_UsuarioGrupo" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AreaImagen" Member="AreaImagens">
+    <Type Name="AreaImagen">
+      <Column Name="AreaImagenID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AreaID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Imagen_AreaImagen" Member="Imagen" ThisKey="ImagenID" OtherKey="ImagenID" Type="Imagen" IsForeignKey="true" />
+      <Association Name="Area_AreaImagen" Member="Area" ThisKey="AreaID" OtherKey="AreaID" Type="Area" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetRoles" Member="AspNetRoles">
+    <Type Name="AspNetRole">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetRole_AspNetUserRole" Member="AspNetUserRoles" ThisKey="Id" OtherKey="RoleId" Type="AspNetUserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserClaims" Member="AspNetUserClaims">
+    <Type Name="AspNetUserClaim">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClaimType" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ClaimValue" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetUser_AspNetUserClaim" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserLogins" Member="AspNetUserLogins">
+    <Type Name="AspNetUserLogin">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LoginProvider" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProviderKey" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="AspNetUser_AspNetUserLogin" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUserRoles" Member="AspNetUserRoles">
+    <Type Name="AspNetUserRole">
+      <Column Name="UserId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RoleId" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="AspNetRole_AspNetUserRole" Member="AspNetRole" ThisKey="RoleId" OtherKey="Id" Type="AspNetRole" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="AspNetUser_AspNetUserRole" Member="AspNetUser" ThisKey="UserId" OtherKey="Id" Type="AspNetUser" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AspNetUsers" Member="AspNetUsers">
+    <Type Name="AspNetUser">
+      <Column Name="Id" Type="System.String" DbType="NVarChar(128) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SecurityStamp" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ApplicationId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="LegacyPasswordHash" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LoweredUserName" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="MobileAlias" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="IsAnonymous" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LastActivityDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="MobilePIN" Type="System.String" DbType="NVarChar(16)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="EmailConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LoweredEmail" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordQuestion" Type="System.String" DbType="NVarChar(256)" CanBeNull="true" />
+      <Column Name="PasswordAnswer" Type="System.String" DbType="NVarChar(128)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumberConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsLockedOut" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="LastLoginDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="LastPasswordChangedDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="LastLockoutDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="FailedPasswordAttemptCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FailedPasswordAttemptWindowStart" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="FailedPasswordAnswerAttemptCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FailedPasswordAnswerAttemptWindowStart" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="TwoFactorEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LockoutEndDateUtc" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="LockoutEnabled" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="AccessFailedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AspNetUser_AspNetUserClaim" Member="AspNetUserClaims" ThisKey="Id" OtherKey="UserId" Type="AspNetUserClaim" />
+      <Association Name="AspNetUser_AspNetUserLogin" Member="AspNetUserLogins" ThisKey="Id" OtherKey="UserId" Type="AspNetUserLogin" />
+      <Association Name="AspNetUser_AspNetUserRole" Member="AspNetUserRoles" ThisKey="Id" OtherKey="UserId" Type="AspNetUserRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_TipoApoyoSocial" Member="Cat_TipoApoyoSocials">
+    <Type Name="Cat_TipoApoyoSocial">
+      <Column Name="TipoApoyoSocialID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Cat_TipoApoyoSocial_ApoyoSocial" Member="ApoyoSocials" ThisKey="TipoApoyoSocialID" OtherKey="TipoApoyoSocialID" Type="ApoyoSocial" />
+      <Association Name="CctActivo_Cat_TipoApoyoSocial" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.cat_TipoLog" Member="cat_TipoLogs">
+    <Type Name="cat_TipoLog">
+      <Column Name="TipoLogID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="cat_TipoLog_Log" Member="Logs" ThisKey="TipoLogID" OtherKey="TipoLogID" Type="Log" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CctEstadistica" Member="CctEstadisticas">
+    <Type Name="CctEstadistica">
+      <Column Name="CctEstadisticaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Clave" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Turno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="LocalidadINEGI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreLocalidad" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="NombreColonia" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Municipio" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreMunicipio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Sostenimiento" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Programa" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="HombresPrimero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresPrimero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalPrimero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HombresSegundo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresSegundo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSegundo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HombresTercero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresTercero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalTercero" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HombresCuarto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresCuarto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalCuarto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HombresQuinto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresQuinto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalQuinto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HombresSexto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MujeresSexto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalSexto" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalHombres" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalMujeres" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MatriculaTotal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Docentes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Grupos" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocenteEducacionFisica" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocenteActividadArtistica" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocenteActividadTecnologia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DocenteIdiomas" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PersonalAdministrativoServicios" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DirectorConGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DirectorSinGrupo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalPersonal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CctPlaneaBasica" Member="CctPlaneaBasicas">
+    <Type Name="CctPlaneaBasica">
+      <Column Name="Nivel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Clave" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Turno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="AlumnosProgramadosPrueba" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PorcentajeEvaluadosLenguajeComunicacion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PorcentajeEvaluadosMatematicas" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EsPruebaRepresentativaLenguajeComunicacion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EsPruebaRepresentativaMatematicas" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InformacionPocoConfiableLenguajeComunicacion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InformacionPocoConfiableMatematicas" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel1LenguajeComunicacionPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel2LenguajeComunicacionPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel3LenguajeComunicacionPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel4LenguajeComunicacionPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NivelPredominanteLenguajeComunicacion" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel1MatematicasPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel2MatematicasPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel3MatematicasPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel4MatematicasPorcentaje" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="NivelPredominanteMatematicas" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DocenteGrupo" Member="DocenteGrupos">
+    <Type Name="DocenteGrupo">
+      <Column Name="DocenteGrupoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="GrupoID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioDocenteID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_DocenteGrupo" Member="Grupo" ThisKey="GrupoID" OtherKey="GrupoID" Type="Grupo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Usuario_DocenteGrupo" Member="Usuario" ThisKey="UsuarioDocenteID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IdeaVoto" Member="IdeaVotos">
+    <Type Name="IdeaVoto">
+      <Column Name="IdeaVotoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdeaID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Calificacion" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Comentario" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Usuario_IdeaVoto" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="SET NULL" />
+      <Association Name="Idea_IdeaVoto" Member="Idea" ThisKey="IdeaID" OtherKey="IdeaID" Type="Idea" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Imagen" Member="Imagens">
+    <Type Name="Imagen">
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mime" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="imagen" Member="imagen1" Type="System.Data.Linq.Binary" DbType="Image NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Ruta" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Imagen_AreaImagen" Member="AreaImagens" ThisKey="ImagenID" OtherKey="ImagenID" Type="AreaImagen" />
+      <Association Name="Imagen_CctActivo" Member="CctActivos" ThisKey="ImagenID" OtherKey="ImagenID" Type="CctActivo" />
+      <Association Name="Imagen_AreaVoto" Member="AreaVotos" ThisKey="ImagenID" OtherKey="ImagenID" Type="AreaVoto" />
+      <Association Name="Imagen_Tarea" Member="Tareas" ThisKey="ImagenID" OtherKey="ImagenID" Type="Tarea" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Log]" Member="Logs">
+    <Type Name="Log">
+      <Column Name="LogID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TipoLogID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Pagina" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ElementoID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Error" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ErrorInterno" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Stack" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Usuario" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Comentario" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="cat_TipoLog_Log" Member="cat_TipoLog" ThisKey="TipoLogID" OtherKey="TipoLogID" Type="cat_TipoLog" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Notificacion" Member="Notificacions">
+    <Type Name="Notificacion">
+      <Column Name="NotificacionID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Asunto" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="De" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Texto" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Notificacion_NotificacionUsuario" Member="NotificacionUsuarios" ThisKey="NotificacionID" OtherKey="NotificacionID" Type="NotificacionUsuario" />
+      <Association Name="Usuario_Notificacion" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="CASCADE" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NotificacionUsuario" Member="NotificacionUsuarios">
+    <Type Name="NotificacionUsuario">
+      <Column Name="NotificacionUsuarioID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NotificacionID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Leido" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Oculto" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="FechaLeido" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Notificacion_NotificacionUsuario" Member="Notificacion" ThisKey="NotificacionID" OtherKey="NotificacionID" Type="Notificacion" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sistema" Member="Sistemas">
+    <Type Name="Sistema">
+      <Column Name="SistemaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NombreInstitucion" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Clave" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="UltimoRespaldo" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SchemaVersion" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="CamposPersonalizados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CamposCalculados" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiasEntreRespaldo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MesesEntreAutoArchivar" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DirectorioCompartido" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="UsuarioRed" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PasswordRed" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="EquipoRemoto" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TutorUsuarioID" Member="TutorUsuarioIDs">
+    <Type Name="TutorUsuarioID">
+      <Column Name="TutorUsuarioID" Member="TutorUsuarioID1" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UsuarioTutorID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="UsuarioHijoID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="Usuario_TutorUsuarioID" Member="Usuario" ThisKey="UsuarioTutorID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" />
+      <Association Name="Usuario_TutorUsuarioID1" Member="Usuario1" ThisKey="UsuarioHijoID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Grupo" Member="Grupos">
+    <Type Name="Grupo">
+      <Column Name="GrupoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Nivel" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Grado" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Grupo" Member="Grupo1" Type="System.Char" DbType="Char(1) NOT NULL" CanBeNull="false" />
+      <Association Name="Grupo_UsuarioGrupo" Member="UsuarioGrupos" ThisKey="GrupoID" OtherKey="GrupoID" Type="UsuarioGrupo" />
+      <Association Name="Grupo_DocenteGrupo" Member="DocenteGrupos" ThisKey="GrupoID" OtherKey="GrupoID" Type="DocenteGrupo" />
+      <Association Name="Grupo_Tarea" Member="Tareas" ThisKey="GrupoID" OtherKey="GrupoID" Type="Tarea" />
+      <Association Name="CctActivo_Grupo" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CctActivos" Member="CctActivos">
+    <Type Name="CctActivo">
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Clave" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Turno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="EntreCalle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="YCalle" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LocalidadINEGI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreLocalidad" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="NombreColonia" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="MunicipioClaveINEGI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreMunicipio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Director" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="CodigoPostal" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Telefono" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Correo" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="ZonaEscolar" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sector" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sostenimiento" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSostenimiento" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Programa" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Latitud" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Longitud" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="CctActivo_ApoyoSocial" Member="ApoyoSocials" ThisKey="CctID" OtherKey="CctID" Type="ApoyoSocial" />
+      <Association Name="CctActivo_Cat_TipoApoyoSocial" Member="Cat_TipoApoyoSocials" ThisKey="CctID" OtherKey="CctID" Type="Cat_TipoApoyoSocial" />
+      <Association Name="CctActivo_Grupo" Member="Grupos" ThisKey="CctID" OtherKey="CctID" Type="Grupo" />
+      <Association Name="CctActivo_Post" Member="Posts" ThisKey="CctID" OtherKey="CctID" Type="Post" />
+      <Association Name="CctActivo_PostTemp" Member="PostTemps" ThisKey="CctID" OtherKey="CctID" Type="PostTemp" />
+      <Association Name="CctActivo_Idea" Member="Ideas" ThisKey="CctID" OtherKey="CctID" Type="Idea" />
+      <Association Name="CctActivo_Tarea" Member="Tareas" ThisKey="CctID" OtherKey="CctID" Type="Tarea" />
+      <Association Name="Imagen_CctActivo" Member="Imagen" ThisKey="ImagenID" OtherKey="ImagenID" Type="Imagen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Area" Member="Areas">
+    <Type Name="Area">
+      <Column Name="AreaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TipoAreaID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Calificacion" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Area_AreaImagen" Member="AreaImagens" ThisKey="AreaID" OtherKey="AreaID" Type="AreaImagen" />
+      <Association Name="Area_AreaVoto" Member="AreaVotos" ThisKey="AreaID" OtherKey="AreaID" Type="AreaVoto" />
+      <Association Name="Cat_TipoArea_Area" Member="Cat_TipoArea" ThisKey="TipoAreaID" OtherKey="TipoAreaID" Type="Cat_TipoArea" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Cat_TipoArea" Member="Cat_TipoAreas">
+    <Type Name="Cat_TipoArea">
+      <Column Name="TipoAreaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Cat_TipoArea_Area" Member="Areas" ThisKey="TipoAreaID" OtherKey="TipoAreaID" Type="Area" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Usuario" Member="Usuarios">
+    <Type Name="Usuario">
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Apellidos" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Telefono" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Usuario" Member="Usuario1" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
+      <Column Name="RFC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Matricula" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="UniqueId" Type="System.Guid" DbType="UniqueIdentifier" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="EsDocente" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EsPadreFamilia" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EsAlumno" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EsPersonal" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="EsDirector" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Usuario_ApoyoSocial" Member="ApoyoSocials" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="ApoyoSocial" />
+      <Association Name="Usuario_UsuarioGrupo" Member="UsuarioGrupos" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="UsuarioGrupo" />
+      <Association Name="Usuario_DocenteGrupo" Member="DocenteGrupos" ThisKey="UsuarioID" OtherKey="UsuarioDocenteID" Type="DocenteGrupo" />
+      <Association Name="Usuario_IdeaVoto" Member="IdeaVotos" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="IdeaVoto" />
+      <Association Name="Usuario_Notificacion" Member="Notificacions" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Notificacion" />
+      <Association Name="Usuario_TutorUsuarioID" Member="TutorUsuarioIDs" ThisKey="UsuarioID" OtherKey="UsuarioTutorID" Type="TutorUsuarioID" />
+      <Association Name="Usuario_TutorUsuarioID1" Member="TutorUsuarioIDs1" ThisKey="UsuarioID" OtherKey="UsuarioHijoID" Type="TutorUsuarioID" />
+      <Association Name="Usuario_AreaVoto" Member="AreaVotos" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="AreaVoto" />
+      <Association Name="Usuario_Idea" Member="Ideas" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Idea" />
+      <Association Name="Usuario_Tarea" Member="Tareas" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Tarea" />
+      <Association Name="Usuario_Tarea1" Member="Tareas1" ThisKey="UsuarioID" OtherKey="DocenteID" Type="Tarea" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Post" Member="Posts">
+    <Type Name="Post">
+      <Column Name="PostID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="Lugar" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Titulo_en" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Texto" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Texto_en" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PlainText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PalabrasClave" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Hora" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TipoNoticia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PublicadoPor" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UrlImagen" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Url" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="EsEvento" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="CctActivo_Post" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PostTemp" Member="PostTemps">
+    <Type Name="PostTemp">
+      <Column Name="PostTempID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="TipoPostID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Lugar" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Seccion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Titulo_en" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Texto" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="Texto_en" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PlainText" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="PalabrasClave" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Hora" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="PublicadoPor" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="UrlImagen" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="MensajeFacebook" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Association Name="CctActivo_PostTemp" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AreaVoto" Member="AreaVotos">
+    <Type Name="AreaVoto">
+      <Column Name="AreaVotoID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AreaID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Calificacion" Type="System.Int16" DbType="SmallInt NOT NULL" CanBeNull="false" />
+      <Column Name="Comentario" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Area_AreaVoto" Member="Area" ThisKey="AreaID" OtherKey="AreaID" Type="Area" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Imagen_AreaVoto" Member="Imagen" ThisKey="ImagenID" OtherKey="ImagenID" Type="Imagen" IsForeignKey="true" />
+      <Association Name="Usuario_AreaVoto" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Idea" Member="Ideas">
+    <Type Name="Idea">
+      <Column Name="IdeaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Texto" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Promedio" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Idea_IdeaVoto" Member="IdeaVotos" ThisKey="IdeaID" OtherKey="IdeaID" Type="IdeaVoto" />
+      <Association Name="CctActivo_Idea" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Usuario_Idea" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Tarea" Member="Tareas">
+    <Type Name="Tarea">
+      <Column Name="TareaID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CctID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="DocenteID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UsuarioID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="GrupoID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ImagenID" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Texto" Type="System.String" DbType="NText NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="FechaEntrega" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="CctActivo_Tarea" Member="CctActivo" ThisKey="CctID" OtherKey="CctID" Type="CctActivo" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+      <Association Name="Grupo_Tarea" Member="Grupo" ThisKey="GrupoID" OtherKey="GrupoID" Type="Grupo" IsForeignKey="true" />
+      <Association Name="Imagen_Tarea" Member="Imagen" ThisKey="ImagenID" OtherKey="ImagenID" Type="Imagen" IsForeignKey="true" />
+      <Association Name="Usuario_Tarea" Member="Usuario" ThisKey="UsuarioID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" DeleteRule="CASCADE" />
+      <Association Name="Usuario_Tarea1" Member="Usuario1" ThisKey="DocenteID" OtherKey="UsuarioID" Type="Usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CctIndicadores" Member="CctIndicadores">
+    <Type Name="CctIndicadore">
+      <Column Name="CCTIndicadorID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Clave" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Turno" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Domicilio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="LocalidadINEGI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreLocalidad" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Colonia" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreColonia" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="MunicipioClaveINEGI" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreMunicipio" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="Sostenimiento" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Nivel" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Programa" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DesercionIntracurricular" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="Reprobacion" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="ReprobacionConRegularizados" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EficienciaTerminal" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

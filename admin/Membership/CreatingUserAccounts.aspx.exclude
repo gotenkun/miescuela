@@ -1,0 +1,70 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="CreatingUserAccounts.aspx.cs" Inherits="Membership_CreatingUserAccounts" Title="Untitled Page" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" Runat="Server">
+    <h2>Crear Nuevo Usuario</h2>
+    <p>
+        <asp:CreateUserWizard ID="RegisterUser" runat="server" 
+            CancelDestinationPageUrl="~/Admin/Default.aspx" 
+            ContinueDestinationPageUrl="~/Default.aspx" DisplayCancelButton="True"
+            oncreatinguser="RegisterUser_CreatingUser" 
+            AnswerLabelText="Respuesta de Seguridad" 
+            AnswerRequiredErrorMessage="Se requiere la respuesta de seguridad" 
+            CancelButtonText="Cancelar" CompleteSuccessText="La cuenta ha sido creada." 
+            ConfirmPasswordCompareErrorMessage="El password y su confirmación deben coincidir." 
+            ConfirmPasswordLabelText="Confirmar Password:" 
+            ConfirmPasswordRequiredErrorMessage="Se requiere la confirmación de password." 
+            CreateUserButtonText="Crear Usuario" 
+            DuplicateEmailErrorMessage="La dirección de email que indicó ya está en uso, indique otra." 
+            DuplicateUserNameErrorMessage="Ingrese otro nombre de usuario." 
+            EmailRegularExpressionErrorMessage="Por favor ingrese otro email." 
+            EmailRequiredErrorMessage="Se requiere el email." 
+            FinishCompleteButtonText="Finalizar" FinishPreviousButtonText="Anterior" 
+            InvalidAnswerErrorMessage="Ingrese una pregunta de seguridad distinta." 
+            InvalidEmailErrorMessage="Por favor ingrese un email correcto." 
+            InvalidPasswordErrorMessage="Longitud mínima de password: {0}. Caracteres NO-alfanuméricos requeridos: {1}." 
+            InvalidQuestionErrorMessage="Ingrese una pregunta de seguridad diferente." 
+            PasswordRegularExpressionErrorMessage="Ingrese un password distinto." 
+            PasswordRequiredErrorMessage="Se requiere el password" 
+            QuestionLabelText="Pregunta de Seguridad" 
+            QuestionRequiredErrorMessage="Se requiere la pregunta de seguridad" 
+            UnknownErrorMessage="Su cuenta NO fue creada, intente más tarde." 
+            UserNameLabelText="Nombre de Usuario:" 
+            UserNameRequiredErrorMessage="Se requiere el nombre de Usuario">
+            <WizardSteps>
+                <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server" 
+                    Title="Crear una nueva cuenta" />
+                <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server" 
+                    Title="Completo" />
+            </WizardSteps>
+        </asp:CreateUserWizard>
+    </p>
+    <p>
+        <asp:Label runat="server" id="InvalidUserNameOrPasswordMessage" Visible="false" EnableViewState="false" ForeColor="Red"></asp:Label>
+    </p>
+    
+    <p>
+        Enter a username: 
+        <asp:TextBox ID="Username" runat="server"></asp:TextBox>
+        <br />
+        
+        Choose a password:
+        <asp:TextBox ID="Password" TextMode="Password" runat="server"></asp:TextBox>        
+        <br />
+        
+        Enter your email address:
+        <asp:TextBox ID="Email" runat="server"></asp:TextBox>
+        <br />
+        
+        <asp:Label runat="server" ID="SecurityQuestion"></asp:Label>: 
+        <asp:TextBox ID="SecurityAnswer" runat="server"></asp:TextBox>
+        <br />
+                
+        <asp:Button ID="CreateAccountButton" runat="server" 
+            Text="Create the User Account" onclick="CreateAccountButton_Click" />
+    </p>
+    <p>
+        <asp:Label ID="CreateAccountResults" runat="server"></asp:Label>
+    </p>    
+</asp:Content>
+
+

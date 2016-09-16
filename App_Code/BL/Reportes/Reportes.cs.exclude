@@ -1,0 +1,228 @@
+﻿using CrystalDecisions.CrystalReports.Engine;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+namespace BL
+{
+    /// <summary>
+    /// Summary description for BL
+    /// </summary>
+    public class Reportes
+    {
+        public Reportes()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+        public static dsReportes GetInformeRevision(PacienteRevision r)
+        {
+            try
+            {
+                dsReportes rep = new dsReportes();
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["KuyuConnectionString"].ConnectionString))
+                {
+
+                        if (r != null)
+                        {
+                            SqlCommand cmd = new SqlCommand("SELECT * FROM PacienteRevision WHERE PAcienteRevisionID=" + r.PacienteRevisionID, con);
+                            SqlDataAdapter dad = new SqlDataAdapter(cmd);
+                            dad.Fill(rep, "PacienteRevision");
+                            cmd = new SqlCommand("SELECT * FROM Usuario WHERE UsuarioID=" + r.UsuarioID, con);
+                            dad = new SqlDataAdapter(cmd);
+                            dad.Fill(rep, "Usuario");
+                            cmd = new SqlCommand("SELECT * FROM Paciente WHERE PacienteID=" + r.PacienteID, con);
+                            dad = new SqlDataAdapter(cmd);
+                            dad.Fill(rep, "Paciente");
+                            if (r.TipoProcedimientoID.HasValue)
+                            {
+                                cmd = new SqlCommand("SELECT * FROM Cat_TipoProcedimiento WHERE TipoProcedimientoID=" + r.TipoProcedimientoID.Value, con);
+                                dad = new SqlDataAdapter(cmd);
+                                dad.Fill(rep, "Cat_TipoProcedimiento");
+                            }
+                            dsReportes.CamposPersonalizadosDataTable dt = new dsReportes.CamposPersonalizadosDataTable();
+                            foreach (UsuarioDatoPaciente ud in r.UsuarioDatoPacientes)
+                            {
+                                dsReportes.CamposPersonalizadosRow dr = rep.CamposPersonalizados.NewCamposPersonalizadosRow();
+                                dr.Etiqueta = ud.UsuarioDato.EtiquetaCampo;
+                                dr.PacienteRevisionID = r.PacienteRevisionID;
+                                switch (ud.UsuarioDato.TipoCampo)
+                                {
+                                    case "nvarchar":
+                                        dr.Valor = ud.Texto;
+                                        break;
+                                    case "ntext":
+                                        dr.Valor = ud.Texto;
+                                        break;
+                                    case "numeric":
+                                        dr.Valor = ud.Decimal.HasValue ? ud.Decimal.Value.ToString() : "0";
+                                        break;
+                                    case "int":
+                                        dr.Valor = ud.Entero.HasValue ? ud.Entero.Value.ToString() : "0";
+                                        break;
+                                    case "bit":
+                                        dr.Valor = ud.Decimal.HasValue ? "SI" : "NO";
+                                        break;
+                                    case "datetime":
+                                        dr.Valor = ud.Fecha.HasValue ? ud.Fecha.Value.ToShortDateString() : "-";
+                                        break;
+                                }
+                                rep.CamposPersonalizados.AddCamposPersonalizadosRow(dr);
+                            }
+                        }
+                    
+                    
+                }
+                return rep;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public static dsHC GetHistoriaClinica(Paciente pa)
+        {
+            try
+            {
+                dsHC rep = new dsHC();
+                using (SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["KuyuConnectionString"].ConnectionString))
+                {
+
+                    if (pa != null)
+                    {
+                        SqlCommand cmd = new SqlCommand("SELECT * FROM Paciente WHERE PacienteID=" + pa.PacienteID, con);
+                        SqlDataAdapter dad = new SqlDataAdapter(cmd);
+                        dad.Fill(rep, "Paciente");
+                        dsHC.HistoriaClinicaDataTable dt = new dsHC.HistoriaClinicaDataTable();
+                        foreach (var hcd in pa.HistoriaClinicaDatoPacientes)
+                        {
+                            dsHC.HistoriaClinicaRow dr = rep.HistoriaClinica.NewHistoriaClinicaRow();
+                            dr.Campo = hcd.HistoriaClinicaDato.EtiquetaCampo;
+                            dr.Importante = hcd.EsImportante.HasValue ? hcd.EsImportante.Value : false;
+                            dr.PacienteID = pa.PacienteID;
+                            string ants = "";
+                            switch (hcd.HistoriaClinicaDato.TipoCampo.ToLower())
+                            {
+                                case ("nvarchar"):
+                                    if (!string.IsNullOrEmpty(hcd.Texto))
+                                    {
+                                        ants += "<h4 " + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += hcd.Texto + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("numeric"):
+                                    if (hcd.Decimal.HasValue)
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        if (hcd.Decimal.HasValue && hcd.NumeroDecimales.HasValue)
+                                            ants += Math.Round(hcd.Decimal.Value, hcd.NumeroDecimales.Value).ToString() + "</h4>";
+                                        if (hcd.Decimal.HasValue)
+                                            ants += hcd.Decimal.Value.ToString() + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("options"):
+                                    if (hcd.OpcionSeleccionada.HasValue)
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += hcd.HistoriaClinicaDato.Opciones.Split(',')[hcd.OpcionSeleccionada.Value] + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("optionsmultiple"):
+                                    if (!string.IsNullOrEmpty(hcd.OpcionesSeleccionadas))
+                                    {
+                                        bool imp = (hcd.EsImportante.HasValue && hcd.EsImportante.Value);
+                                        ants += "<h4" + (imp ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": </h4>";
+                                        ants += "<ul>";
+                                        string[] opciones = hcd.OpcionesSeleccionadas.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                                        foreach (string option in opciones)
+                                        {
+                                            ants += "<li" + (imp ? " style='color:red'" : "") + ">" + option + "</li>";
+                                        }
+                                        ants += "<ul>";
+
+                                    }
+                                    break;
+                                case ("ntext"):
+                                    if (!string.IsNullOrEmpty(hcd.Texto))
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += hcd.Texto + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("datetime"):
+                                    if (hcd.Fecha.HasValue)
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += hcd.Fecha.Value.ToLongDateString() + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("int"):
+                                    if (hcd.Entero.HasValue)
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += hcd.Entero.ToString() + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                                case ("bit"):
+                                    if (hcd.Booleano.HasValue)
+                                    {
+                                        ants += "<h4" + ((hcd.EsImportante.HasValue && hcd.EsImportante.Value) ? " style='color:red'" : "") + ">" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += (hcd.Booleano.Value ? "SI" : "NO") + "</h4>";
+                                    }
+                                    else
+                                    {
+                                        ants += "<h4>" + hcd.HistoriaClinicaDato.EtiquetaCampo + ": ";
+                                        ants += "-</h4>";
+                                    }
+                                    break;
+                            }
+                            dr.Valor = ants;
+                            rep.HistoriaClinica.AddHistoriaClinicaRow(dr);
+                        }
+                    }
+                }
+                return rep;
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+        }
+    } 
+}
