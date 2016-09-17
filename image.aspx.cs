@@ -161,7 +161,6 @@ public partial class _image : BasePage
                                     if (!File.Exists(Server.MapPath(ruta)))
                                     {
                                         //cargar de db. agregar registro
-                                        MedikAdmin.Common.AgregarLog(5, "imagen.aspx", id, "", "", "", User.Identity.Name, "No se encontro la imagen en disco.", false);
                                         img = context.Imagens.SingleOrDefault(
                                                                  i => i.ImagenID == id);
 
