@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Estadistica.aspx.cs" Inherits="Estadistica" %>
 
+<%@ Register Src="~/Controls/Sharer.ascx" TagPrefix="uc1" TagName="Sharer" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentStyles" runat="Server">
@@ -9,6 +12,7 @@
         <asp:Label Text="" ID="lblTitulo" runat="server" /></h2>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="contentBody" runat="Server">
+    <uc1:Sharer runat="server" ID="Sharer" />
     <asp:Label Text="" ID="lblEstadisticas" runat="server" />
     <div class="row">
         <div class="col-md-6">

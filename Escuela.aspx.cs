@@ -29,8 +29,7 @@ public partial class Escuela : System.Web.UI.Page
     }
     private void Cargar()
     {
-        try
-        {
+    
             string id = Request.GetFriendlyUrlSegments()[0];
             using (MiEscuelaDataContext context = new MiEscuelaDataContext())
             {
@@ -38,6 +37,8 @@ public partial class Escuela : System.Web.UI.Page
                 if (c != null)
                 {
                     lblNombre.Text = c.Nombre + "(" + c.Nivel + ")";
+                    Page.Title = "#MIESCUELA - " + lblNombre.Text;
+
                     hdLat.Value = c.Latitud.ToString();
                     hdLon.Value = c.Longitud.ToString();
                     if (c.ImagenID.HasValue)
@@ -170,11 +171,6 @@ public partial class Escuela : System.Web.UI.Page
                     lblEstadisticas.Text = stat;
                 }
             }
-        }
-        catch (Exception)
-        {
-            
-            throw;
-        }
+       
     }
 }

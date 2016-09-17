@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Escuela.aspx.cs" Inherits="Escuela" %>
 
 <%@ Register Src="~/Controls/Noticias.ascx" TagPrefix="uc1" TagName="Noticias" %>
+<%@ Register Src="~/Controls/Sharer.ascx" TagPrefix="uc1" TagName="Sharer" %>
+
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -12,8 +14,10 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="contentBody" runat="Server">
    
+           <uc1:Sharer runat="server" ID="Sharer" />
     <div class="row">
         <div class="col-md-12">
+            "
             <div style="width: 100%; height: 250px; overflow: hidden">
                 <img runat="server" id="imgPrincipal" style="width: 100%;" alt="" />
             </div>

@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Ver-Idea.aspx.cs" Inherits="Ver_Idea" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Src="~/Controls/Sharer.ascx" TagPrefix="uc1" TagName="Sharer" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentStyles" runat="Server">
@@ -13,6 +15,7 @@
         <asp:Label Text="" ID="lblTitulo" runat="server" /></h1>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="contentBody" runat="Server">
+    <uc1:Sharer runat="server" ID="Sharer" />
     <div class="row">
         <div class="col-md-12">
 

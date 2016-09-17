@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Estadisticas-Jalisco.aspx.cs" Inherits="Estadisticas_Jalisco" %>
 
+<%@ Register Src="~/Controls/Sharer.ascx" TagPrefix="uc1" TagName="Sharer" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="contentStyles" runat="Server">
@@ -13,6 +16,7 @@
     <h1>Estadísticas Escuelas de Jalisco</h1>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="contentBody" runat="Server">
+    <uc1:Sharer runat="server" ID="Sharer" />
     <div class="portlet light">
         <div class="portlet-body">
             <div class="row">
